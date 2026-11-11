@@ -2,84 +2,76 @@
 
 Projeto 03/49 da trilha pessoal de portfólio.
 
+Aplicação de console que avalia seis regras de composição
+de senhas e apresenta um relatório detalhado.
+
 ## Tecnologias
 
 - Java 25
 - Maven
 - JUnit 6
+- GitHub Actions
 
-## Estado do desenvolvimento
+## Regras implementadas
 
-Etapas 1 a 4: seis regras individuais e resultado consolidado implementados.
+1. Pelo menos 12 caracteres
+2. Pelo menos uma letra maiúscula
+3. Pelo menos uma letra minúscula
+4. Pelo menos um número
+5. Pelo menos um caractere especial
+6. Não conter espaços em branco
 
-A aplicação ainda não possui interface interativa.
-As seis regras já são avaliadas em conjunto.
+A avaliação das seis regras é independente.
 
-## Regra implementada
+## Arquitetura
 
-A senha deve possuir pelo menos 12 caracteres.
-Valores nulos e vazios são rejeitados.
+- Main: interação pelo console.
+- ValidadorSenha: implementação das verificações.
+- RegraSenha: enum das regras disponíveis.
+- ResultadoValidacao: record com lista imutável de falhas.
 
-Nesta etapa, comprimento é calculado pelo método
-String.length(), que conta unidades UTF-16.
-
-## Executar testes
+## Executar os testes
 
 ```powershell
 mvn clean verify
 ```
 
-## Executar aplicação
+## Executar a aplicação
 
 ```powershell
 java -jar target/validador-senhas-java-1.0.0.jar
 ```
 
-## Segurança
+O menu permite validar novas entradas ou encerrar.
 
-O projeto não registra nem armazena senhas.
-As regras de composição são exercícios de validação,
-não uma implementação completa de autenticação segura.
-## Etapa 2 — Letras maiúsculas e minúsculas
+## Segurança e limitações
 
-O validador identifica pelo menos uma letra maiúscula
-ou minúscula, inclusive caracteres acentuados.
+Este aplicativo é uma demonstração educacional.
 
-Os métodos retornam false para null e strings vazias.
-Cada regra pode ser testada independentemente.
+Use exclusivamente senhas fictícias. Nunca informe
+credenciais reais.
 
-A validação completa e o menu interativo serão
-implementados nas próximas etapas.
-## Etapa 3 — Números, símbolos e espaços
+Quando há console compatível, Console.readPassword()
+oculta a entrada. Em ambientes sem console dedicado,
+a leitura ocorre pela entrada padrão e pode ser visível.
 
-Foram adicionadas três verificações independentes:
+A aplicação não registra nem persiste as senhas.
 
-- Pelo menos um dígito reconhecido por Character.isDigit().
-- Pelo menos um caractere especial, excluindo letras,
-  dígitos e caracteres de espaço em branco.
-- Ausência de espaços em branco, inclusive tabulações
-  e espaços não separáveis.
+As regras são didáticas e não constituem uma política
+de autenticação segura para produção.
 
-Valores null são rejeitados por todas as regras.
+A implementação utiliza String e unidades UTF-16.
+Uma solução de autenticação real exigiria outras
+medidas, incluindo verificação de senhas comprometidas,
+armazenamento com hash adequado e proteção contra
+tentativas automatizadas.
 
-A política de composição é didática e não substitui
-uma política de autenticação segura.
+## Testes automatizados
 
-A validação consolidada está disponível na etapa 4.
-A interface interativa será implementada em seguida.
-## Etapa 4 — Resultado consolidado
+Testes JUnit verificam cada regra, o resultado
+consolidado e o comportamento da interface.
 
-O metodo validar(String) avalia as seis regras e devolve
-um ResultadoValidacao.
+## Próxima etapa
 
-- valida(): true quando nenhuma regra falha.
-- regrasNaoAtendidas(): lista das regras reprovadas.
-- atende(RegraSenha): informa o status de uma regra.
-
-RegraSenha identifica cada criterio e sua descricao.
-
-A lista de falhas e imutavel e copiada defensivamente,
-evitando modificacoes externas apos a validacao.
-
-A aplicacao ainda nao solicita senhas pelo console.
-Essa funcionalidade sera implementada na proxima etapa.
+Adicionar demonstração visual, revisar documentação
+e publicar no GitHub com CI.
