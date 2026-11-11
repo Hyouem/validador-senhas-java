@@ -36,4 +36,53 @@ public class ValidadorSenha {
 
         return false;
     }
+
+    public boolean possuiNumero(String senha) {
+        if (senha == null) {
+            return false;
+        }
+
+        for (int i = 0; i < senha.length(); i++) {
+            if (Character.isDigit(senha.charAt(i))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean possuiCaractereEspecial(String senha) {
+        if (senha == null) {
+            return false;
+        }
+
+        for (int i = 0; i < senha.length(); i++) {
+            char caractere = senha.charAt(i);
+
+            if (!Character.isLetterOrDigit(caractere)
+                    && !Character.isWhitespace(caractere)
+                    && !Character.isSpaceChar(caractere)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean naoPossuiEspacos(String senha) {
+        if (senha == null || senha.isEmpty()) {
+            return false;
+        }
+
+        for (int i = 0; i < senha.length(); i++) {
+            char caractere = senha.charAt(i);
+
+            if (Character.isWhitespace(caractere)
+                    || Character.isSpaceChar(caractere)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

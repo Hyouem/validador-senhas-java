@@ -97,4 +97,94 @@ class ValidadorSenhaTest {
     void rejeitaVazioNaRegraMinuscula() {
         assertFalse(validador.possuiLetraMinuscula(""));
     }
+
+    @Test
+    void reconheceNumero() {
+        assertTrue(validador.possuiNumero("Senha9!"));
+    }
+
+    @Test
+    void reconheceDigitoUnicode() {
+        assertTrue(validador.possuiNumero("Senha٣!"));
+    }
+
+    @Test
+    void rejeitaSenhaSemNumero() {
+        assertFalse(validador.possuiNumero("SenhaAbc!"));
+    }
+
+    @Test
+    void naoConfundeSimboloComNumero() {
+        assertFalse(validador.possuiNumero("!!!"));
+    }
+
+    @Test
+    void rejeitaNuloNaRegraNumero() {
+        assertFalse(validador.possuiNumero(null));
+    }
+
+    @Test
+    void rejeitaVazioNaRegraNumero() {
+        assertFalse(validador.possuiNumero(""));
+    }
+
+    @Test
+    void reconheceExclamacaoComoEspecial() {
+        assertTrue(validador.possuiCaractereEspecial("Abc!123"));
+    }
+
+    @Test
+    void reconheceSublinhadoComoEspecial() {
+        assertTrue(validador.possuiCaractereEspecial("Abc_123"));
+    }
+
+    @Test
+    void rejeitaSenhaSemEspecial() {
+        assertFalse(validador.possuiCaractereEspecial("Abc123"));
+    }
+
+    @Test
+    void naoConsideraEspacoComoEspecial() {
+        assertFalse(validador.possuiCaractereEspecial("Abc 123"));
+    }
+
+    @Test
+    void rejeitaNuloNaRegraEspecial() {
+        assertFalse(validador.possuiCaractereEspecial(null));
+    }
+
+    @Test
+    void rejeitaVazioNaRegraEspecial() {
+        assertFalse(validador.possuiCaractereEspecial(""));
+    }
+
+    @Test
+    void aceitaSenhaSemEspacos() {
+        assertTrue(validador.naoPossuiEspacos("Abc123!"));
+    }
+
+    @Test
+    void rejeitaEspacoComum() {
+        assertFalse(validador.naoPossuiEspacos("Abc 123!"));
+    }
+
+    @Test
+    void rejeitaTabulacao() {
+        assertFalse(validador.naoPossuiEspacos("Abc\t123!"));
+    }
+
+    @Test
+    void rejeitaEspacoNaoSeparavel() {
+        assertFalse(validador.naoPossuiEspacos("Abc\u00A0123!"));
+    }
+
+    @Test
+    void rejeitaNuloNaRegraEspacos() {
+        assertFalse(validador.naoPossuiEspacos(null));
+    }
+
+    @Test
+    void rejeitaVazioNaRegraEspacos() {
+        assertFalse(validador.naoPossuiEspacos(""));
+    }
 }

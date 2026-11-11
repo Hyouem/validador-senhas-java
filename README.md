@@ -50,3 +50,20 @@ Cada regra pode ser testada independentemente.
 
 A validação completa e o menu interativo serão
 implementados nas próximas etapas.
+## Etapa 3 — Números, símbolos e espaços
+
+Foram adicionadas três verificações independentes:
+
+- Pelo menos um dígito reconhecido por Character.isDigit().
+- Pelo menos um caractere especial, excluindo letras,
+  dígitos e caracteres de espaço em branco.
+- Ausência de espaços em branco, inclusive tabulações
+  e espaços não separáveis.
+
+Valores null são rejeitados por todas as regras.
+
+A política de composição é didática e não substitui
+uma política de autenticação segura.
+
+A validação consolidada e a interface interativa
+serão implementadas nas próximas etapas.
