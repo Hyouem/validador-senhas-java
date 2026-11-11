@@ -1,5 +1,9 @@
 package br.com.portfolio.senhas;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -186,5 +190,149 @@ class ValidadorSenhaTest {
     @Test
     void rejeitaVazioNaRegraEspacos() {
         assertFalse(validador.naoPossuiEspacos(""));
+    }
+
+    @Test
+    void validaSenhaCompleta() {
+        ResultadoValidacao resultado = validador.validar("SenhaSegura@2026");
+
+        assertTrue(resultado.valida());
+        assertTrue(resultado.regrasNaoAtendidas().isEmpty());
+
+        for (RegraSenha regra : RegraSenha.values()) {
+            assertTrue(resultado.atende(regra));
+        }
+    }
+
+    @Test
+    void identificaFalhaSomenteNoComprimento() {
+        ResultadoValidacao resultado = validador.validar("Aa1!");
+
+        assertFalse(resultado.valida());
+        assertEquals(
+            List.of(RegraSenha.COMPRIMENTO_MINIMO),
+            resultado.regrasNaoAtendidas()
+        );
+        assertFalse(resultado.atende(RegraSenha.COMPRIMENTO_MINIMO));
+        assertTrue(resultado.atende(RegraSenha.LETRA_MAIUSCULA));
+    }
+
+    @Test
+    void identificaAusenciaDeMaiuscula() {
+        assertEquals(
+            List.of(RegraSenha.LETRA_MAIUSCULA),
+            validador.validar("senhasegura@2026").regrasNaoAtendidas()
+        );
+    }
+
+    @Test
+    void identificaAusenciaDeMinuscula() {
+        assertEquals(
+            List.of(RegraSenha.LETRA_MINUSCULA),
+            validador.validar("SENHASEGURA@2026").regrasNaoAtendidas()
+        );
+    }
+
+    @Test
+    void identificaAusenciaDeNumero() {
+        assertEquals(
+            List.of(RegraSenha.NUMERO),
+            validador.validar("SenhaSegura@XYZ").regrasNaoAtendidas()
+        );
+    }
+
+    @Test
+    void identificaAusenciaDeEspecial() {
+        assertEquals(
+            List.of(RegraSenha.CARACTERE_ESPECIAL),
+            validador.validar("SenhaSegura2026").regrasNaoAtendidas()
+        );
+    }
+
+    @Test
+    void identificaEspacoComum() {
+        assertEquals(
+            List.of(RegraSenha.SEM_ESPACOS),
+            validador.validar("Senha Segura@2026").regrasNaoAtendidas()
+        );
+    }
+
+    @Test
+    void identificaTabulacao() {
+        assertEquals(
+            List.of(RegraSenha.SEM_ESPACOS),
+            validador.validar("Senha\tSegura@2026").regrasNaoAtendidas()
+        );
+    }
+
+    @Test
+    void identificaEspacoNaoSeparavel() {
+        assertEquals(
+            List.of(RegraSenha.SEM_ESPACOS),
+            validador.validar("Senha\u00A0Segura@2026").regrasNaoAtendidas()
+        );
+    }
+
+    @Test
+    void rejeitaNuloSemLancarExcecao() {
+        ResultadoValidacao resultado = validador.validar(null);
+
+        assertFalse(resultado.valida());
+        assertEquals(
+            Set.of(RegraSenha.values()),
+            Set.copyOf(resultado.regrasNaoAtendidas())
+        );
+    }
+
+    @Test
+    void rejeitaSenhaVaziaComTodasAsFalhas() {
+        ResultadoValidacao resultado = validador.validar("");
+
+        assertFalse(resultado.valida());
+        assertEquals(
+            RegraSenha.values().length,
+            resultado.regrasNaoAtendidas().size()
+        );
+    }
+
+    @Test
+    void identificaVariasFalhasSimultaneamente() {
+        ResultadoValidacao resultado = validador.validar("abcdef");
+
+        assertEquals(
+            List.of(
+                RegraSenha.COMPRIMENTO_MINIMO,
+                RegraSenha.LETRA_MAIUSCULA,
+                RegraSenha.NUMERO,
+                RegraSenha.CARACTERE_ESPECIAL
+            ),
+            resultado.regrasNaoAtendidas()
+        );
+    }
+
+    @Test
+    void resultadoNaoPermiteModificarLista() {
+        ResultadoValidacao resultado = validador.validar("Aa1!");
+
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> resultado.regrasNaoAtendidas().add(RegraSenha.NUMERO)
+        );
+    }
+
+    @Test
+    void resultadoFazCopiaDefensiva() {
+        List<RegraSenha> falhas = new ArrayList<>();
+        falhas.add(RegraSenha.NUMERO);
+
+        ResultadoValidacao resultado = new ResultadoValidacao(falhas);
+
+        falhas.clear();
+
+        assertEquals(
+            List.of(RegraSenha.NUMERO),
+            resultado.regrasNaoAtendidas()
+        );
+        assertFalse(resultado.valida());
     }
 }

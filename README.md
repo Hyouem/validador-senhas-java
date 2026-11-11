@@ -10,10 +10,10 @@ Projeto 03/49 da trilha pessoal de portfólio.
 
 ## Estado do desenvolvimento
 
-Etapas 1 e 2: comprimento mínimo e presença de letras maiúsculas e minúsculas implementados.
+Etapas 1 a 4: seis regras individuais e resultado consolidado implementados.
 
-A aplicação ainda não possui interface interativa nem
-a política completa de validação.
+A aplicação ainda não possui interface interativa.
+As seis regras já são avaliadas em conjunto.
 
 ## Regra implementada
 
@@ -65,5 +65,21 @@ Valores null são rejeitados por todas as regras.
 A política de composição é didática e não substitui
 uma política de autenticação segura.
 
-A validação consolidada e a interface interativa
-serão implementadas nas próximas etapas.
+A validação consolidada está disponível na etapa 4.
+A interface interativa será implementada em seguida.
+## Etapa 4 — Resultado consolidado
+
+O metodo validar(String) avalia as seis regras e devolve
+um ResultadoValidacao.
+
+- valida(): true quando nenhuma regra falha.
+- regrasNaoAtendidas(): lista das regras reprovadas.
+- atende(RegraSenha): informa o status de uma regra.
+
+RegraSenha identifica cada criterio e sua descricao.
+
+A lista de falhas e imutavel e copiada defensivamente,
+evitando modificacoes externas apos a validacao.
+
+A aplicacao ainda nao solicita senhas pelo console.
+Essa funcionalidade sera implementada na proxima etapa.

@@ -1,5 +1,8 @@
 package br.com.portfolio.senhas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ValidadorSenha {
 
     public static final int COMPRIMENTO_MINIMO = 12;
@@ -84,5 +87,35 @@ public class ValidadorSenha {
         }
 
         return true;
+    }
+
+    public ResultadoValidacao validar(String senha) {
+        List<RegraSenha> falhas = new ArrayList<>();
+
+        if (!possuiComprimentoMinimo(senha)) {
+            falhas.add(RegraSenha.COMPRIMENTO_MINIMO);
+        }
+
+        if (!possuiLetraMaiuscula(senha)) {
+            falhas.add(RegraSenha.LETRA_MAIUSCULA);
+        }
+
+        if (!possuiLetraMinuscula(senha)) {
+            falhas.add(RegraSenha.LETRA_MINUSCULA);
+        }
+
+        if (!possuiNumero(senha)) {
+            falhas.add(RegraSenha.NUMERO);
+        }
+
+        if (!possuiCaractereEspecial(senha)) {
+            falhas.add(RegraSenha.CARACTERE_ESPECIAL);
+        }
+
+        if (!naoPossuiEspacos(senha)) {
+            falhas.add(RegraSenha.SEM_ESPACOS);
+        }
+
+        return new ResultadoValidacao(falhas);
     }
 }
