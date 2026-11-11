@@ -71,7 +71,29 @@ tentativas automatizadas.
 Testes JUnit verificam cada regra, o resultado
 consolidado e o comportamento da interface.
 
-## Próxima etapa
+## Demonstração
 
-Adicionar demonstração visual, revisar documentação
-e publicar no GitHub com CI.
+![Validador de Senhas em execução](docs/images/funcionamento.png)
+
+Imagem produzida a partir da saída real do programa
+com entradas fictícias.
+
+Transcrição:
+[exemplo-execucao.txt](docs/exemplo-execucao.txt).
+
+## Validação da entrega
+
+- Java 25 e Maven.
+- 61 testes automatizados JUnit aprovados localmente.
+- Seis regras individuais.
+- Relatório consolidado com enum e record.
+- Menu interativo.
+- JAR executável validado.
+- GitHub Actions configurado.
+
+## Segurança
+
+Este projeto demonstra regras didáticas de composição
+de senhas, não autenticação segura para produção.
+
+Nunca utilize senhas reais nesta demonstração.

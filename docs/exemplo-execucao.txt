@@ -1,0 +1,30 @@
+=== VALIDADOR DE SENHAS ===
+Utilize apenas senhas ficticias.
+
+1 - Validar senha
+0 - Sair
+Opcao: Digite uma senha de teste:
+RESULTADO DA VALIDACAO
+[OK] Pelo menos 12 caracteres
+[OK] Pelo menos uma letra maiuscula
+[OK] Pelo menos uma letra minuscula
+[OK] Pelo menos um numero
+[OK] Pelo menos um caractere especial
+[OK] Nao conter espacos em branco
+Resultado: SENHA VALIDA
+
+1 - Validar senha
+0 - Sair
+Opcao: Digite uma senha de teste:
+RESULTADO DA VALIDACAO
+[FALHA] Pelo menos 12 caracteres
+[OK] Pelo menos uma letra maiuscula
+[OK] Pelo menos uma letra minuscula
+[OK] Pelo menos um numero
+[OK] Pelo menos um caractere especial
+[OK] Nao conter espacos em branco
+Resultado: SENHA INVALIDA
+
+1 - Validar senha
+0 - Sair
+Opcao: Ate a proxima!
